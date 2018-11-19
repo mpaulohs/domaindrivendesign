@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "CrudApi";
+}
+
+<h1>Crud Api Book</h1>
+
+<form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+    <div class="form-row">
+        <div class="col">
+            <input id="add-title" type="text" class="form-control" placeholder="Title">
+        </div>       
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+</form>
+<br />
+<div id="spoiler">
+    <form class="my-form">
+        <div class="form-row">
+            <input type="hidden" id="edit-id">
+            <div class="col">
+                <input id="edit-title" type="text" class="form-control" placeholder="Title">
+            </div>            
+            <div class="col">
+                <button type="submit" class="btn btn-warning">Edit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>            
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="todos">        
+    </tbody>
+</table>
+
+@section Scripts{
+    <style type="text/css">
+        input[type='submit'], button, [aria-label] {
+            cursor: pointer;
+        }
+
+        #spoiler {
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        const uri = window.location.origin + '/api/Books';
+        let todos = null;       
+
+        $(function () {
+            getData();
+        })
+
+        function getData() {            
+            $.ajax({
+                type: 'GET',
+                url: uri,
+                success: function (data) {
+                    $('#todos').empty();                    
+                    $.each(data, function (key, item) {
+
+                        $('<tr><th scope="row">' + item.id + '</td>' +
+                            '<td>' + item.title + '</td>' +                           
+                            '<td><button class="btn btn-warning" onclick="editItem(' + item.id + ')">Edit</button>' +
+                            '<button class="btn btn-danger" onclick="deleteItem(' + item.id + ')">Delete</button></td>' +
+                            '</tr>').appendTo($('#todos'));
+                    });
+
+                    todos = data;
+                },
+                error: function (response) {                    
+                    // alert(response.responseJSON.title)
+                    alert(JSON.stringify(response));
+                },
+            });
+        }
+
+        function addItem() {
+            const item = {
+                'Title': $('#add-title').val()                
+            };
+
+            $.ajax({
+                type: 'POST',
+                accepts: 'application/json',
+                url: uri,
+                contentType: 'application/json;  charset=utf-8',
+                data: JSON.stringify(item),
+                error: function (response) {
+                   // alert(response.responseJSON.title)
+                    alert(JSON.stringify(response));
+                },
+                success: function (result) {
+                    getData();
+                    $('#add-title').val('');                    
+                }
+            });
+        }
+
+        function deleteItem(id) {
+            $.ajax({
+                url: uri + '/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    getData();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('here');
+                },
+            });
+        }
+
+        function editItem(id) {
+            $.each(todos, function (key, item) {
+                if (item.id === id) {
+                    $('#edit-title').val(item.title);                    
+                    $('#edit-id').val(item.id);
+                }
+            });
+            $('#spoiler').css({ 'display': 'block' });
+        }
+
+        $('.my-form').on('submit', function () {
+            const item = {
+                'Title': $('#edit-title').val(),                
+                'Id': $('#edit-id').val()
+            };
+
+            $.ajax({
+                url: uri + '/' + $('#edit-id').val(),
+                type: 'PUT',
+                accepts: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify(item),
+                success: function (result) {
+                    getData();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('here');
+                },
+            });
+
+            closeInput();
+            return false;
+        });
+
+        function closeInput() {
+            $('#spoiler').css({ 'display': 'none' });
+        }
+
+    </script>
+}
+
+

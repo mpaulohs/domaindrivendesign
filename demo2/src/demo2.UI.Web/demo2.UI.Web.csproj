@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>inprocess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0-preview3-35497" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0-preview3-35497" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Configuration\Settings\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\demo2.Application\demo2.Application.csproj" />
+    <ProjectReference Include="..\demo2.Domain\demo2.Domain.csproj" />
+    <ProjectReference Include="..\demo2.Infrastructure\demo2.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
