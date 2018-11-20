@@ -48,6 +48,7 @@ namespace demo2.UI.Web
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -81,7 +82,7 @@ namespace demo2.UI.Web
 
         private static void AddMediatr(IServiceCollection services)
         {
-            const string applicationAssemblyName = "demo2.Domain";
+            const string applicationAssemblyName = "demo2.Application";
             var assembly = AppDomain.CurrentDomain.Load(applicationAssemblyName);
 
             AssemblyScanner

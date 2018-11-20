@@ -13,10 +13,24 @@ namespace demo2.Infrastructure.Data
         }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<PostTag>()
+            .HasKey(t => new { t.PostId, t.TagId });
+
+            builder.Entity<PostTag>()
+                .HasOne(pt => pt.Post)
+                .WithMany(p => p.PostTags)
+                .HasForeignKey(pt => pt.PostId);
+
+            builder.Entity<PostTag>()
+                .HasOne(pt => pt.Tag)
+                .WithMany(t => t.PostTags)
+                .HasForeignKey(pt => pt.TagId);
 
             builder.Entity<User>().ToTable("Core_User");
             builder.Entity<Role>().ToTable("Core_Role");
