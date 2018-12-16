@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace demo2.UI.Web.Migrations
+namespace demo2.UI.Web.App_Data.Migrations
 {
     public partial class initial : Migration
     {
@@ -59,6 +59,20 @@ namespace demo2.UI.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Core_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImageStore",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ImageBase64String = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImageStore", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,8 +174,8 @@ namespace demo2.UI.Web.Migrations
                 name: "Core_UserLogin",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -205,8 +219,8 @@ namespace demo2.UI.Web.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -317,6 +331,9 @@ namespace demo2.UI.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Core_UserToken");
+
+            migrationBuilder.DropTable(
+                name: "ImageStore");
 
             migrationBuilder.DropTable(
                 name: "PostTag");

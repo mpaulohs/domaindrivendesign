@@ -1,4 +1,5 @@
 ﻿using demo2.Domain.AggregatesModel;
+using demo2.Domain.AggregatesModel.ImageStore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace demo2.Infrastructure.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ImageStore> ImageStore { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

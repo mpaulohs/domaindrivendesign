@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using demo2.Infrastructure.Data;
 
-namespace demo2.UI.Web.Migrations
+namespace demo2.UI.Web.App_Data.Migrations
 {
     [DbContext(typeof(Demo2DbContext))]
-    [Migration("20181120003111_initial")]
-    partial class initial
+    partial class Demo2DbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +45,20 @@ namespace demo2.UI.Web.Migrations
                         .IsUnique();
 
                     b.ToTable("BlogImage");
+                });
+
+            modelBuilder.Entity("demo2.Domain.AggregatesModel.ImageStore.ImageStore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("CreateDate");
+
+                    b.Property<string>("ImageBase64String");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageStore");
                 });
 
             modelBuilder.Entity("demo2.Domain.AggregatesModel.Post", b =>
@@ -220,9 +232,11 @@ namespace demo2.UI.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -240,9 +254,11 @@ namespace demo2.UI.Web.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 

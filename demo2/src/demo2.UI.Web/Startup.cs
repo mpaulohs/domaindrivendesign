@@ -1,6 +1,7 @@
 ﻿using System;
 using demo2.Application.Behaviors;
 using demo2.Domain.AggregatesModel;
+using demo2.Domain.AggregatesModel.ImageStore;
 using demo2.Domain.SeedWork;
 using demo2.Infrastructure.Data;
 using demo2.Infrastructure.Repository;
@@ -38,9 +39,9 @@ namespace demo2.UI.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<Demo2DbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<User, Role>()
+            //    .AddEntityFrameworkStores<Demo2DbContext>()
+            //    .AddDefaultTokenProviders();
 
             services.ConfigureDatabase(Configuration, Enviroment);
             AddMediatr(services);
@@ -49,6 +50,7 @@ namespace demo2.UI.Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IBlogRepository, BlogRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

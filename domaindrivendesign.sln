@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demo2.Domain", "demo2\src\d
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demo2.Application", "demo2\src\demo2.Application\demo2.Application.csproj", "{AC932DD6-1E7A-48A5-850E-D96B603E86ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo2.UI.Web", "demo2\src\demo2.UI.Web\demo2.UI.Web.csproj", "{D0A86E6E-F6E8-4034-9167-CB3B0DCE0CBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demo2.UI.Web", "demo2\src\demo2.UI.Web\demo2.UI.Web.csproj", "{D0A86E6E-F6E8-4034-9167-CB3B0DCE0CBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo3", "demo3", "{30E0D435-A158-403F-B5E4-F78CE26C0886}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -26,6 +26,8 @@ namespace demo2.UI.Web.Controllers
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
+           var dd =  _context.Blogs.FirstOrDefault();
+            ViewBag.Result = dd.FirstLetters(dd);
             return View(await _context.Blogs.ToListAsync());
         }
 
